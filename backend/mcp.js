@@ -165,4 +165,4 @@ function mcpHandler(req, res) {
   });
 }
 
-module.exports = mcpHandler;
+module.exports = { mcpHandler };

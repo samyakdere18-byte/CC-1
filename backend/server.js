@@ -4,7 +4,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const connectDB = require('./config/db');
 const studentRoutes = require('./routes/studentRoutes');
-const mcpHandler = require('./mcp');
+const { mcpHandler } = require('./mcp');
 
 const app = express();
 const frontendOrigin = process.env.FRONTEND_URL?.replace(/\/$/, '');
@@ -17,7 +17,6 @@ app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
 app.use(express.json());
 if (process.env.MCP_SECRET) {
-  app.post(`/mcp/${process.env.MCP_SECRET}`, mcpHandler);
   app.get(`/mcp/${process.env.MCP_SECRET}`, (req, res) => res.status(405).json({ error: 'Method not allowed' }));
 }
 app.get('/', (req, res) => res.json({ success: true, message: 'Student Management System API is running' }));
@@ -31,6 +30,7 @@ app.use('/api/students', (req, res, next) => {
   }
   next();
 }, studentRoutes);
+app.post(`/mcp/${process.env.MCP_SECRET}`, express.json(), mcpHandler);
 app.use((req, res) => res.status(404).json({ success: false, message: 'Route not found' }));
 app.use((error, req, res, next) => {
   if (res.headersSent) return next(error);
