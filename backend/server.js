@@ -9,7 +9,7 @@ const mcpHandler = require('./mcp');
 const app = express();
 const frontendOrigin = process.env.FRONTEND_URL?.replace(/\/$/, '');
 const corsOptions = {
-  origin: [frontendOrigin, 'https://cc-1-divya.netlify.app', 'http://localhost:5173'].filter(Boolean),
+  origin: [...new Set([frontendOrigin, 'http://localhost:5173'].filter(Boolean))],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Accept', 'Content-Type', 'Authorization'],
 };
@@ -42,7 +42,7 @@ const port = process.env.PORT || 5000;
 const startServer = () => {
   const server = app.listen(port, () => console.log(`Server running on port ${port}`));
   server.on('error', (error) => {
-    console.error(`HTTP server failed to listen (${error.code || error.name || 'Error'}). Check the Render PORT setting.`);
+    console.error(`HTTP server failed to listen (${error.code || error.name || 'Error'}). Check the PORT setting.`);
     process.exitCode = 1;
   });
 
@@ -57,7 +57,7 @@ if (require.main === module) {
   try {
     startServer();
   } catch (error) {
-    console.error(`HTTP server startup failed (${error.name || 'Error'}). Check the Render PORT setting.`);
+    console.error(`HTTP server startup failed (${error.name || 'Error'}). Check the PORT setting.`);
     process.exitCode = 1;
   }
 }

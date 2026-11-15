@@ -20,7 +20,7 @@ const connectDB = async () => {
   const host = authority?.split('@').pop();
 
   if (!uri) {
-    console.error('MongoDB is not configured: set MONGODB_URI in the Render service environment.');
+    console.error('MongoDB is not configured: set MONGODB_URI in backend/.env.');
     return null;
   }
   if (!schemeIsValid || !host) {

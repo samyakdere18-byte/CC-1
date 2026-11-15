@@ -14,7 +14,7 @@ export default function App() {
   const notify = (text, error = false) => setNotice({ text, error });
   const errorMessage = (error, fallback) => {
     if (error.response?.data?.message || error.response?.data?.error) return error.response.data.message || error.response.data.error;
-    if (error.code === 'ERR_NETWORK' || error.message === 'Network Error') return 'Cannot reach the API. Check the API URL, CORS settings, and Render service status.';
+    if (error.code === 'ERR_NETWORK' || error.message === 'Network Error') return 'Cannot reach the local API. Start the backend and check its port and CORS settings.';
     return error.message || fallback;
   };
   const loadStudents = async () => {

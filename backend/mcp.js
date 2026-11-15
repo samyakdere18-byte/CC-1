@@ -110,7 +110,7 @@ function registerTools(server) {
   }));
 
   server.registerTool('github_write', {
-    description: 'Create or overwrite a file in the GitHub repo and commit it. Triggers auto-deploy if enabled on Netlify/Render.',
+    description: 'Create or overwrite a file in the configured GitHub repo and commit it.',
     inputSchema: { path: z.string().min(1), content: z.string(), message: z.string().min(1) }
   }, ({ path, content, message }) => runTool(async () => {
     const url = `${GH_API}${path}`;
@@ -146,24 +146,6 @@ function registerTools(server) {
     return Promise.all(cols.map(async (c) => ({ name: c.name, count: await mongoose.connection.db.collection(c.name).countDocuments() })));
   }));
 
-  // ---------- Deploy hooks ----------
-  server.registerTool('redeploy_netlify', {
-    description: 'Trigger a Netlify frontend redeploy',
-    inputSchema: {}
-  }, () => runTool(async () => {
-    if (!process.env.NETLIFY_BUILD_HOOK) throw new Error('NETLIFY_BUILD_HOOK not set');
-    const r = await fetch(process.env.NETLIFY_BUILD_HOOK, { method: 'POST' });
-    return { status: r.status, ok: r.ok };
-  }));
-
-  server.registerTool('redeploy_render', {
-    description: 'Trigger a Render backend redeploy (this server restarts)',
-    inputSchema: {}
-  }, () => runTool(async () => {
-    if (!process.env.RENDER_DEPLOY_HOOK) throw new Error('RENDER_DEPLOY_HOOK not set');
-    const r = await fetch(process.env.RENDER_DEPLOY_HOOK, { method: 'POST' });
-    return { status: r.status, ok: r.ok };
-  }));
 }
 
 function mcpHandler(req, res) {
