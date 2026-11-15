@@ -47,11 +47,11 @@ The local MCP endpoint is `http://localhost:5000/mcp/<MCP_SECRET>`.
 
 ## Deployments
 
-- Frontend (Netlify): [https://cc-1-divya.netlify.app](https://cc-1-divya.netlify.app)
+- Frontend (Netlify): [https://cc-1121.netlify.app](https://cc-1121.netlify.app)
 - Backend API (Render): [https://cc-1-n9al.onrender.com](https://cc-1-n9al.onrender.com)
 - Backend health: [https://cc-1-n9al.onrender.com/api/health](https://cc-1-n9al.onrender.com/api/health)
 
-The frontend uses the local API while running in Vite development and the Render API in production. Netlify builds the `frontend` directory. Configure the Render service with `backend` as its root, `npm install` as its build command, and `npm start` as its start command. Set `MONGODB_URI` and `FRONTEND_URL=https://cc-1-divya.netlify.app` in Render. Set `VITE_API_URL=https://cc-1-n9al.onrender.com/api` in Netlify if overriding the production default.
+The frontend uses the local API while running in Vite development and the Render API in production. Production builds ignore localhost `VITE_API_URL` values. Netlify builds the `frontend` directory. Configure the Render service with `backend` as its root, `npm install` as its build command, and `npm start` as its start command. Set `MONGODB_URI` and `FRONTEND_URL=https://cc-1121.netlify.app` in Render. Set `VITE_API_URL=https://cc-1-n9al.onrender.com/api` in Netlify if overriding the production default.
 
 ## API endpoints
 
