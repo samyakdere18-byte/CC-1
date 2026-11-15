@@ -9,7 +9,7 @@ const mcpHandler = require('./mcp');
 const app = express();
 const frontendOrigin = process.env.FRONTEND_URL?.replace(/\/$/, '');
 const corsOptions = {
-  origin: [...new Set([frontendOrigin, 'http://localhost:5173'].filter(Boolean))],
+  origin: [...new Set([frontendOrigin, 'https://cc-1-divya.netlify.app', 'http://localhost:5173'].filter(Boolean))],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Accept', 'Content-Type', 'Authorization'],
 };

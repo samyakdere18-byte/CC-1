@@ -11,7 +11,9 @@ const normalizeBaseURL = (value) => {
   }
 };
 
-const defaultBaseURL = 'http://localhost:5000/api';
+const defaultBaseURL = import.meta.env.DEV
+  ? 'http://localhost:5000/api'
+  : 'https://cc-1-n9al.onrender.com/api';
 const baseURL = normalizeBaseURL(import.meta.env.VITE_API_URL || '') || normalizeBaseURL(defaultBaseURL);
 
 export default axios.create({
